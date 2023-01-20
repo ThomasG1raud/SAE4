@@ -1,5 +1,5 @@
 # SAE4 
-Application permettant de collecter de données
+API serving to the extraction/ analysis/ visualization/ presentation of data.
 
 # Datasets
 1. Dataset 1
