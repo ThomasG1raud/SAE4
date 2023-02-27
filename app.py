@@ -14,12 +14,20 @@ def page():
     
 
 
-@app.route('/table')
-def table():
+@app.route('/tableMeteo')
+def tableMeteo():
     # converting csv to html
-    data = pd.read_csv('donneMeteo.csv',sep=';')
-    data1=data.head()
-    return render_template('table.html', tables=[data1.to_html()], titles=[''])
+    meteo = pd.read_csv('donneMeteo.csv',sep=';')
+    meteo1=meteo.head()
+    return render_template('tableMeteo.html', tables=[meteo1.to_html()], titles=[''])
+
+
+@app.route('/tableAir')
+def tableAir():
+    # converting csv to html
+    air = pd.read_csv('openaq.csv',sep=';')
+    air1=air.head()
+    return render_template('tableAir.html', tables=[air1.to_html()], titles=[''])
 
 
 
