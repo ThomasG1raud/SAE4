@@ -1,12 +1,23 @@
 # importing flask
 from flask import Flask, render_template
-  
-# importing pandas module
+import matplotlib.pyplot as plt
+import numpy as np
+import seaborn as sns
 import pandas as pd
   
   
 app = Flask(__name__)
   
+meteo = pd.read_csv('donneMeteo.csv',sep=';')
+meteo1=meteo.head()
+# print(meteo1.info())
+
+########   analyse de la temperature par region #########
+sns.relplot(x="region (name)", y="Température (°C)", data=meteo, kind="line")
+plt.xticks(rotation=90)
+plt.show()
+################################################################
+
 # route to html page - "table"
 @app.route('/')
 def page():
