@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projet SAE</title>
+</head>
+<body>
+    <a href="./table">
+        <button>données csv de base </button>
+      </a> 
+    <h1>SAE  Developpement avec une base de données et visualisation</h1>
+    <h2>Presentation SAE</h2>
+    <span>1 Presentation de la SA ´ E´
+        Afin de respecter la contrainte d’une SAE impliquant toutes les comp ´ etences du BUT 2 de parcours C, le ´
+        cadre global du sujet de la SAE S4 est une application permettant de collecter de donn ´ ees (via un naviga- ´
+        teur ou autre), comme par exemple d’un forum medical, etc. Ensuite, les donn ´ ees collect ´ ees peuvent ´ etre ˆ
+        integr ´ ees pour former un seul jeu de donn ´ ees que vous devez manipuler, visualiser et dont vous devez ex- ´
+        traire des informations utiles. Cette SAE est centr ´ ee sur l’extraction/analyse/visualisation/pr ´ esentation des ´
+        donnees. ´
+        Cette application doit etre r ˆ ealis ´ ee selon des principes de conception actuels de la science des donn ´ ees, ´
+        a savoir avec une partie visuelle c ` otˆ e navigateur (front-end) ´ ecrite en python et/ou Javascript, et avec la ´
+        possibilite d’utiliser une base de donn ´ ees. ´
+        A la fin, une interface doit ` etre fournie ˆ a l’utilisateur pour filtrer, rechercher et voir les r ` esultats de votre ´
+        analyse.
+    </span>
+    <h2>Cahier des charges </h2>
+    <span>
+        Vous devez developper une api qui: ´
+        1. Collecte des donnees ´ a partir de deux sources de donn ` ees en ligne diff ´ erentes (ou plus) li ´ ees ´ a un `
+        theme sp ` ecifique. Exemple de th ´ emes : `
+        • Environnement
+        • Coronavirus
+        • Tremblements de terre
+        • Radioactivite´
+        • Hydrogene `
+        • Etc.
+        ⋆ Assurez-vous que les donnees collect ´ ees concernent une zone sp ´ ecifique (ex : Paris, France, ´
+        USA, etc).
+        ⋆ En plus, pour chaque source de donnees, il est pr ´ ef´ erable de cr ´ eer un service (peut ´ etre un service ˆ
+        Web) qui tel´ echarge continuellement les donn ´ ees. ´
+        2. Fusion et integration de donn ´ ees. Appliquer les proc ´ edures de pr ´ e-traitement pour g ´ erer les donn ´ ees ´
+        collectees et les cr ´ eer/modifier en utilisant pandas [1]. ´
+        • Integration des donn ´ ees: combiner les donn ´ ees provenant de diff ´ erentes sources dans une vue ´
+        unifiee, ´
+        • Normalisation des variables quantitatives,
+        • Encodage des variables qualitatives.
+        SAE S4, PARCOURS C ´ 2
+        3. Production de statistiques descriptives:
+        • Pour chaque caracteristique (selon son type), ´
+        • Ou pour l’ensemble de ce jeu de donnees. ´
+        4. Chercher les donnees manquantes, et tester plusieurs m ´ ethodes de compl ´ etion. ´
+        • Evaluation des r ´ esultats de diff ´ erentes m ´ ethodes par plusieurs m ´ etriques si c’est possible, ´
+        • Chercher les meilleurs methodes. ´
+        5. Recherche et traitement de donnees aberrantes, par plusieurs mani ´ eres. `
+        • Comment trouver les meilleures methodes ? ´
+        • Evaluation des r ´ esultats par plusieurs m ´ etriques. ´
+        • Quelle methode vous devriez utiliser parmi celles propos ´ ees par l’application? ´
+        6. Visualisation de donnees ´
+        pour une caracteristique/variable explicative (selon son type): s ´ electionner parmi celles pro- ´
+        posees par l’application fournie ou pour l’ensemble des caract ´ eristiques (r ´ ecurrence, distribu- ´
+        tion, etc).
+        7. Selection de caract ´ eristiques: utiliser diff ´ erentes techniques pour la s ´ election des caract ´ eristiques, ´
+        telles que les methodes de s ´ election par filtre univari ´ e et l’algorithme d’ ´ elimination r ´ ecursif [2, 3]. ´
+        • Comment trouver les meilleures methodes ? ´
+        • Evaluation des r ´ esultats par plusieurs m ´ etriques. ´
+        • Quelle methode vous devriez utiliser parmi celles propos ´ ees par l’application? ´
+        8. Prediction ou classification (suivant le contexte) par plusieurs techniques d’apprentissage automatique ´
+        (selection de mod ´ ele). `
+        9. Interface publique pour montrer les resultats de l’analyse au client. 
+    </span>
+</body>
+</html>
