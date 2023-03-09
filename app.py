@@ -8,15 +8,12 @@ import pandas as pd
   
 app = Flask(__name__)
   
-meteo = pd.read_csv('donneMeteo.csv',sep=';')
-meteo1=meteo.head()
-# print(meteo1.info())
+meteo = pd.read_csv('donneMeteo.csv',sep=';', index_col='Date', parse_dates=True)
+air = pd.read_csv('openaq.csv', sep=';', index_col='Last Updated', parse_dates=True)
+meteoAir = pd.concat([meteo, air])
+#meteoAir.reset_index(inplace=True, drop=True)
 
-########   analyse de la temperature par region #########
-sns.relplot(x="region (name)", y="Température (°C)", data=meteo, kind="line")
-plt.xticks(rotation=90)
-plt.show()
-################################################################
+
 
 # route to html page - "table"
 @app.route('/')
@@ -28,28 +25,19 @@ def page():
 @app.route('/tableMeteo')
 def tableMeteo():
     # converting csv to html
-    meteo = pd.read_csv('donneMeteo.csv',sep=';')
-    meteo1=meteo.head()
-    return render_template('tableMeteo.html', tables=[meteo1.to_html()], titles=[''])
+    return render_template('tableMeteo.html', tables=[meteo.head().to_html()], titles=[''])
 
 
 @app.route('/tableAir')
 def tableAir():
     # converting csv to html
-    air = pd.read_csv('openaq.csv',sep=';')
-    air1=air.head()
-    return render_template('tableAir.html', tables=[air1.to_html()], titles=[''])
+    return render_template('tableAir.html', tables=[air.head().to_html()], titles=[''])
 
 
 @app.route('/tableMeteoAir')
 def tableMeteoAir():
     # converting csv to html
-    meteo = pd.read_csv('donneMeteo.csv',sep=';')
-    air = pd.read_csv('openaq.csv',sep=';')
-    meteo1=meteo.head()
-    air1=air.head()
-    meteoAir = pd.concat([meteo1, air1], axis=1)
-    return render_template('tableMeteoAir.html', tables=[meteoAir.to_html()], titles=[''])
+    return render_template('tableMeteoAir.html', tables=[meteoAir.head().to_html()], titles=[''])
    
 
 
