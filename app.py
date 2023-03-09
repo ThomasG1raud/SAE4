@@ -10,10 +10,10 @@ app = Flask(__name__)
 # Lire les fichiers CSV
 meteo = pd.read_csv('donneMeteo.csv',sep=',', index_col='Date', parse_dates=True)
 #     meteo1=meteo.head()
-air = pd.read_csv('openaq.csv',sep=',',index_col='Last Updated', parse_dates=True)
+air = pd.read_csv('openaq.csv',sep=',',index_col='Date', parse_dates=True)
 #     air1=air.head()
-
-meteo_air = pd.concat([air, meteo])
+#air.rename(index = {'Last Updated':'Date'}, inplace = True)
+meteo_air = pd.merge(air, meteo, on='Date')
 
 # Nettoyer les données
 

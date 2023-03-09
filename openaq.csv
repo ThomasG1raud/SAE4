@@ -1,4 +1,4 @@
-City,Coordinates,Pollutant,Unit,Value,Last Updated,Country Label
+City,Coordinates,Pollutant,Unit,Value,Date,Country Label
 Drôme,"44.5694309830826, 5.27896773343405",O3,µg/m³,50.5,2023-02-27T06:00:00+01:00,France
 Drôme,"44.8702622204614, 4.87628892417463",PM10,µg/m³,5.9,2023-02-27T02:00:00+01:00,France
 Pas-de-Calais,"50.7482369340289, 2.25978396242539",NO2,µg/m³,10.5,2023-02-27T06:00:00+01:00,France
