@@ -13,6 +13,8 @@ meteo = pd.read_csv('donneMeteo.csv',sep=',', index_col='Date', parse_dates=True
 air = pd.read_csv('openaq.csv',sep=',',index_col='Last Updated', parse_dates=True)
 #     air1=air.head()
 
+meteo_air = pd.concat([air, meteo])
+
 # Nettoyer les données
 
 #     meteo.dropna(inplace=True)
@@ -50,6 +52,10 @@ def tableMeteo():
 def tableAir():
     air1=air.head()
     return render_template('tableAir.html', tables=[air1.to_html()], titles=[''])
+
+@app.route('/tableMeteoAir')
+def tableMeteoAir():
+    return render_template('tableMeteo.html', tables=[meteo_air.head().to_html()], titles=[''])
 
 if __name__ == '__main__':
     app.run(debug=True)
