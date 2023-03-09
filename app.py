@@ -8,9 +8,9 @@ import pandas as pd
 app = Flask(__name__)
 
 # Lire les fichiers CSV
-meteo = pd.read_csv('donneMeteo.csv',sep=',')
+meteo = pd.read_csv('donneMeteo.csv',sep=',', index_col='Date', parse_dates=True)
 #     meteo1=meteo.head()
-air = pd.read_csv('openaq.csv',sep=',')
+air = pd.read_csv('openaq.csv',sep=',',index_col='Last Updated', parse_dates=True)
 #     air1=air.head()
 
 # Nettoyer les données
