@@ -41,6 +41,18 @@ def tableAir():
     return render_template('tableAir.html', tables=[air1.to_html()], titles=[''])
 
 
+@app.route('/tableMeteoAir')
+def tableMeteoAir():
+    # converting csv to html
+    meteo = pd.read_csv('donneMeteo.csv',sep=';')
+    air = pd.read_csv('openaq.csv',sep=';')
+    meteo1=meteo.head()
+    air1=air.head()
+    meteoAir = pd.concat([meteo1, air1], axis=1)
+    return render_template('tableMeteoAir.html', tables=[meteoAir.to_html()], titles=[''])
+   
+
+
 
 
 if __name__ == '__main__':
