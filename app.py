@@ -8,7 +8,7 @@ import pandas as pd
 app = Flask(__name__)
 
 # Lire les fichiers CSV
-meteo = pd.read_csv('Meteo.csv',sep=';')
+meteo = pd.read_csv('meteo.csv',sep=';')
 # meteo.dropna(inplace=True)
 meteo1=meteo.head()
 
