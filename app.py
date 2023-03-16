@@ -8,24 +8,44 @@ import pandas as pd
 app = Flask(__name__)
 
 # Lire les fichiers CSV
-meteo = pd.read_csv('donneMeteo.csv',sep=',')
-# , index_col='Date', parse_dates=True
-deplacementCol1 = meteo.pop('department (name)')
-meteo.insert(0, 'department (name)', deplacementCol1)
-deplacementCol2 = meteo.pop('region (name)')
-meteo.insert(1, 'region (name)', deplacementCol1)
+meteo = pd.read_csv('Meteo.csv',sep=';')
+# meteo.dropna(inplace=True)
 meteo1=meteo.head()
-air = pd.read_csv('openaq.csv',sep=',')
-# ,index_col='Date', parse_dates=True
+
+air = pd.read_csv('Air.csv',sep=',')
+air.dropna(inplace=True)
 air1=air.head()
 
-air1_pivot = air1.pivot(index=['Date','City', 'Coordinates', 'Unit', 'Value','Country Label'], columns='Pollutant', values='Value')
-air1_pivot = air1_pivot.rename(columns={'O3': 'O3 (µg/m³)', 'PM10': 'PM10 (µg/m³)', 'NO2': 'NO2 (µg/m³)', 'PM2.5': 'PM2.5 (µg/m³)'})
 
-# meteo_air = pd.concat([air, meteo])  a refaire
-#meteo_air = pd.concat(air, meteo, on='Date')
+################  chagements de pace de colonne ####################
+# deplacementCol1 = meteo.pop('department (name)')
+# meteo.insert(0, 'department (name)', deplacementCol1)
+# deplacementCol2 = meteo.pop('region (name)')
+#meteo.insert(1, 'region (name)', deplacementCol1)
+
+
+##########   changement de données colonne en colonnes
+
+
+# concatener les deux tables air et meteo ?
+# meteo_air = pd.concat([meteo, air1_pivot], axis=1, join='inner')
+# meteo_air.to_csv('meteo_air.csv', index=False)
+# meteo_air = pd.concat([meteo, air1_pivot], axis=1)
+
+
+#########     effacer colonnes meteo   ###########################
 print(meteo.columns)
+# cols_to_drop_meteo = ['Pression station','Nébulosité couche nuageuse 2','Type de tendance barométrique.1']
+# meteo.drop(columns=cols_to_drop_meteo, inplace=True)
+# meteo.to_csv('donneMeteo.csv', index=False)
+
+
+#########       effacer colonnes air #################
 print(air.columns)
+# cols_to_drop_air = ['Source Name', 'Country Code','Location']
+# air.drop(columns=cols_to_drop_air, inplace=True)
+# air.to_csv('openaq.csv', index=False)
+
 
 @app.route('/')
 def page():
@@ -39,11 +59,11 @@ def tableMeteo():
 
 @app.route('/tableAir')
 def tableAir():
-    return render_template('tableAir.html', tables=[air1_pivot.to_html()], titles=[''])
+    return render_template('tableAir.html', tables=[air1.to_html()], titles=[''])
 
-# @app.route('/tableMeteoAir') # a refaire
+# @app.route('/tableMeteoAir')
 # def tableMeteoAir():
-#     return render_template('tableMeteo.html', tables=[meteo_air.head().to_html()], titles=[''])
+#     return render_template('tableMeteo.html', tables=[meteo_air.to_html()], titles=[''])
 
 if __name__ == '__main__':
     app.run(debug=True)
