@@ -9,43 +9,21 @@ app = Flask(__name__)
 
 # Lire les fichiers CSV
 meteo = pd.read_csv('meteo.csv',sep=';')
-# meteo.dropna(inplace=True)
-meteo1=meteo.head()
 
-air = pd.read_csv('Air.csv',sep=',')
-air.dropna(inplace=True)
-air1=air.head()
+air = pd.read_csv('air.csv',sep=',')
 
+#########     choix colonnes meteo   ###########################
+meteo1 = meteo[["ID OMM station", "Date", "Humidité", "Nom", "Température (°C)", "Altitude", "communes (name)", "communes (code)", "EPCI (name)", "department (name)", "region (name)", "mois_de_l_annee"]]
+df = meteo1[meteo1["region (name)"] == "Centre-Val de Loire"]
+nb_lignes = df.shape[0]
+print("Nombre de lignes pour la région Centre-Val de Loire :",nb_lignes)
+# meteo1.to_csv('meteo1.csv', index=False)
 
-################  chagements de pace de colonne ####################
-# deplacementCol1 = meteo.pop('department (name)')
-# meteo.insert(0, 'department (name)', deplacementCol1)
-# deplacementCol2 = meteo.pop('region (name)')
-#meteo.insert(1, 'region (name)', deplacementCol1)
-
-
-##########   changement de données colonne en colonnes
-
-
-# concatener les deux tables air et meteo ?
-# meteo_air = pd.concat([meteo, air1_pivot], axis=1, join='inner')
-# meteo_air.to_csv('meteo_air.csv', index=False)
-# meteo_air = pd.concat([meteo, air1_pivot], axis=1)
-
-
-#########     effacer colonnes meteo   ###########################
-print(meteo.columns)
-# cols_to_drop_meteo = ['Pression station','Nébulosité couche nuageuse 2','Type de tendance barométrique.1']
-# meteo.drop(columns=cols_to_drop_meteo, inplace=True)
-# meteo.to_csv('donneMeteo.csv', index=False)
-
-
-#########       effacer colonnes air #################
-print(air.columns)
-# cols_to_drop_air = ['Source Name', 'Country Code','Location']
-# air.drop(columns=cols_to_drop_air, inplace=True)
-# air.to_csv('openaq.csv', index=False)
-
+#########       choix colonnes air #################
+air1 = air[["lib_qual", "lib_zone", "code_no2", "code_so2", "code_o3", "code_pm10", "code_pm25", "conc_no2", "conc_so2", "conc_o3", "conc_pm10", "conc_pm25"]]
+nb_lignes_air=air1.shape[0]
+print("Nombre de lignes pour la région Centre-Val de Loire :",nb_lignes_air)
+# air1.to_csv('air1.csv', index=False)
 
 @app.route('/')
 def page():
@@ -54,12 +32,12 @@ def page():
 
 @app.route('/tableMeteo')
 def tableMeteo():
-    return render_template('tableMeteo.html', tables=[meteo1.to_html()], titles=[''])
+    return render_template('tableMeteo.html', tables=[df.head().to_html()], titles=[''])
 
 
 @app.route('/tableAir')
 def tableAir():
-    return render_template('tableAir.html', tables=[air1.to_html()], titles=[''])
+    return render_template('tableAir.html', tables=[air1.head().to_html()], titles=[''])
 
 # @app.route('/tableMeteoAir')
 # def tableMeteoAir():
