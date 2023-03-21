@@ -17,19 +17,29 @@ air.index = air.index.floor('D')
 
 
 #########     choix colonnes meteo   ###########################
-meteo = meteo[["ID OMM station", "Humidité", "Nom", "Température (°C)", "Altitude", "communes (name)", "communes (code)", "EPCI (name)", "department (name)", "region (name)", "mois_de_l_annee"]]
+meteo = meteo[[ "Humidité", "Nom", "Température (°C)", "communes (name)", "communes (code)", "EPCI (name)", "department (name)", "region (name)"]]
 meteo = meteo[meteo["region (name)"] == "Centre-Val de Loire"]
 nb_lignes = meteo.shape[0]
 print("Nombre de lignes pour la région Centre-Val de Loire :", nb_lignes)
 
 #########       choix colonnes air #################
-air = air[["lib_qual", "lib_zone", "code_no2", "code_so2", "code_o3", "code_pm10", "code_pm25", "conc_no2", "conc_so2", "conc_o3", "conc_pm10", "conc_pm25"]]
+air = air[["lib_qual", "lib_zone", "conc_no2", "conc_so2", "conc_o3", "conc_pm10", "conc_pm25"]]
 nb_lignes_air = air.shape[0]
 print("Nombre de lignes pour la région Centre-Val de Loire :", nb_lignes_air)
 
+#meteo_mean = meteo.groupby(["Date", "region (name)", "department (name)", "communes (name)"]).mean()
+meteo_mean = meteo.groupby(["Date"]).mean()
+meteo_mean= meteo_mean.reset_index()
+print(meteo_mean.shape)
 
-meteo_air = pd.merge(air, meteo, on="Date")
+air_mean = air.groupby(["Date"]).mean()
+air_mean= air_mean.reset_index()
+print(air_mean.shape)
+
+meteo_air = pd.merge(air_mean, meteo_mean, on="Date")
 meteo_air = meteo_air.dropna(axis=0)
+print(meteo_air.shape)
+
 
 @app.route('/')
 def page():
@@ -38,16 +48,16 @@ def page():
 
 @app.route('/tableMeteo')
 def tableMeteo():
-    return render_template('tableMeteo.html', tables=[meteo.tail(250).to_html()], titles=[''])
+    return render_template('tableMeteo.html', tables=[meteo_mean.head(250).to_html()], titles=[''])
 
 
 @app.route('/tableAir')
 def tableAir():
-    return render_template('tableAir.html', tables=[air.tail(250).to_html()], titles=[''])
+    return render_template('tableAir.html', tables=[air.head(250).to_html()], titles=[''])
 
 @app.route('/tableMeteoAir')
 def tableMeteoAir():
-    return render_template('tableMeteo.html', tables=[meteo_air.tail(250).to_html()], titles=[''])
+    return render_template('tableMeteo.html', tables=[meteo_air.head(250).to_html()], titles=[''])
 
 if __name__ == '__main__':
     app.run(debug=True)
