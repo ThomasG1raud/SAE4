@@ -10,7 +10,9 @@ app = Flask(__name__)
 # Lire les fichiers CSV
 meteo = pd.read_csv('meteo.csv', sep=';', index_col="Date", parse_dates=True)
 meteo.index = pd.to_datetime(meteo.index, utc=True)
+meteo.index = meteo.index.floor('D')
 air = pd.read_csv('air.csv', sep=',', index_col="Date", parse_dates=True)
+air.index = air.index.floor('D')
 
 
 
@@ -26,7 +28,9 @@ nb_lignes_air = air.shape[0]
 print("Nombre de lignes pour la région Centre-Val de Loire :", nb_lignes_air)
 
 
-meteo_air = pd.merge(meteo, air, on="Date")
+meteo_air = pd.merge(air, meteo, on="Date")
+meteo_air = meteo_air.dropna(axis=0)
+
 @app.route('/')
 def page():
     return render_template('principalPage.html')
@@ -34,16 +38,16 @@ def page():
 
 @app.route('/tableMeteo')
 def tableMeteo():
-    return render_template('tableMeteo.html', tables=[meteo.tail().to_html()], titles=[''])
+    return render_template('tableMeteo.html', tables=[meteo.tail(250).to_html()], titles=[''])
 
 
 @app.route('/tableAir')
 def tableAir():
-    return render_template('tableAir.html', tables=[air.tail().to_html()], titles=[''])
+    return render_template('tableAir.html', tables=[air.tail(250).to_html()], titles=[''])
 
 @app.route('/tableMeteoAir')
 def tableMeteoAir():
-    return render_template('tableMeteo.html', tables=[meteo_air.head().to_html()], titles=[''])
+    return render_template('tableMeteo.html', tables=[meteo_air.tail(250).to_html()], titles=[''])
 
 if __name__ == '__main__':
     app.run(debug=True)
