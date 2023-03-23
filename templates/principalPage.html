@@ -1,30 +1,94 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Projet SAE</title>
-</head>
-<body>
-    <a href="./tableMeteo">
-        <button>données csv de Meteo </button>
-    </a> 
-    <a href="./tableAir">
-        <button>données csv de L'air </button>
-    </a>
-    <a href="./tableMeteoAir">
-        <button>données csv de la Meteo et de l'air </button>
-    </a> 
+    <head>
+        <meta charset="UTF-8">
+        <title>Graphique</title>
+        <!-- <link rel="stylesheet" href="./style.css"> -->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
+        <link rel="stylesheet" href="https://cdn.bokeh.org/bokeh/release/bokeh-3.1.0.min.css" type="text/css" />
+        <script src="https://cdn.bokeh.org/bokeh/release/bokeh-3.1.0.min.js"></script>
+    </head>
+    <body>  
+        <nav class="navbar navbar-dark bg-dark">
+            <div class="container-fluid">
+              <a class="navbar-brand" href="#">SAE S4</a>
+              <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+              </button>
+              <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                <ul class="navbar-nav">
+                  <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="/tableMeteo">Table données Meteo 2022</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="/tableAir">Table données air</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="/tableMeteoAir">Table Air + Meteo nettoyées et réunis </a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="/graphique">Graphique</a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </nav>
 
-    <h1>SAE  Developpement avec une base de données et visualisation</h1>
-            
+        <!-- {{ div|safe }}
+        {{ script|safe }} -->
 
-    <p>Différents graphiques avec analyse :</p>
+        <div>
+            <h1> Présentation du projet </h1>
+            <p> Le projet consiste à créer un site web qui permet de visualiser les données météo et air </p>
+            <p> Le site web est composé de 2 pages : </p>
+            <ul>
+                <li> Une page qui permet de visualiser les données météo et air </li>
+                <li> Une page qui permet de visualiser les graphiques</li>
+            </ul>
+            <p> Le site web est développé en Python avec le framework Flask </p>
 
-  <button onclick="window.location.href='graphique1.html'">Graphique 1</button>
-  <button onclick="window.location.href='graphique2.html'">Graphique 2</button>
-  <button onclick="window.location.href='graphique3.html'">Graphique 3</button>
-
-</body>
+            <h2> Objecif </h2>
+            <p>Le but du projet est de créer un site web qui permet de visualiser les données météo et air <br />
+                1. Collecte des donnees à partir de deux sources de données : 
+                <ul>
+                    <li>Les données air sont récupérées depuis le site <a href="https://hub.arcgis.com/datasets/573182f1b016474ca43b9543e71cd3a6_0/explore?location=47.467301%2C1.684380%2C8.58&showTable=true">hub.arcgis.com</a></li>
+                    <li>Les données météo sont récupérées depuis le site <a href="https://data.opendatasoft.com/explore/dataset/donnees-synop-essentielles-omm%40public/table/?sort=date&refine.date=2022&refine.nom_reg=Centre-Val+de+Loire">data.opendatasoft.com</a></li>
+                </ul>
+                2. Fusion et integration de données. Appliquer les procédures de pré-traitement pour gérer les donnés collectees et les créeer/modifier en utilisant pandas [1].<br />
+                <ul>
+                    <li>Integration des données: combiner les données provenant de différentes sources dans une vue unifiee</li>
+                    <li>Normalisation des variables quantitatives</li>
+                    <li>Encodage des variables qualitatives.</li>
+                </ul>
+                
+                3. Production de statistiques descriptives:<br />
+                <ul>
+                <li>Pour chaque caracteristique (selon son type)</li>
+                <li>Ou pour l'ensemble de ce jeu de donnees.</li> 
+                </ul>
+                4. Chercher les donnees manquantes, et tester plusieurs méthodes de complétion. <br />
+                <ul>
+                    <li>Evaluation des résultats de différentes méthodes par plusieurs métriques si c'est possible</li>
+                    <li>Chercher les meilleurs methodes. </li>
+                </ul>
+                
+                5. Recherche et traitement de donnees aberrantes, par plusieurs maniéres.<br />
+                <ul>
+                    <li>Comment trouver les meilleures methodes ? </li>
+                    <li>Evaluation des résultats par plusieurs mètriques. </li>
+                    <li>Quelle methode vous devriez utiliser parmi celles proposées par l'application?</li> 
+                </ul>
+                6. Visualisation de donnees pour une caracteristique/variable explicative (selon son type): sélectionner parmi celles proposees par l'application fournie ou pour l'ensemble des caractéristiques (récurrence, distribution, etc).<br />
+                7. Selection de caractéristiques: utiliser différentes techniques pour la sélection des caractéristiques, telles que les methodes de sélection par filtre univarié et l’algorithme d’élimination récursif [2, 3]. <br />
+                <ul>
+                    <li>Comment trouver les meilleures methodes ? </li>
+                    <li>Evaluation des résultats par plusieurs métriques. </li>
+                    <li>Quelle methode vous devriez utiliser parmi celles proposées par l'application? </li>
+                </ul>
+                8. Prediction ou classification (suivant le contexte) par plusieurs techniques d'apprentissage automatique (selection de modéle). <br />
+                9. Interface publique pour montrer les resultats de l'analyse au client.
+            </p>
+        </div>
+    </body>
 </html>
