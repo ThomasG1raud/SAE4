@@ -70,35 +70,81 @@ meteo_air['Date'] = meteo_air['Date'].dt.strftime('%Y-%m-%d')
 
 ############# graph 1 ################
 
-p = figure(title='Concentration en NO2 en fonction de la température', x_axis_label='Température (°C)', y_axis_label='Concentration en NO2')
-p.circle(meteo_air['Température (°C)'], meteo_air['conc_no2'])
+
+p1 = figure(title='Température et humidité', x_axis_label='Température (°C)', y_axis_label='Humidité')
+p1.circle(meteo_air['Température (°C)'], meteo_air['Humidité'])
 
 # Génération du code HTML et JavaScript pour le graphique
-script, div = components(p)
+script1, div1 = components(p1)
+
+
 
 ############# graph 2 ################
+meteo_air['Date'] = pd.to_datetime(meteo_air['Date'], format='%Y-%m-%d')
+meteo_air['Month'] = meteo_air['Date'].dt.month_name()
 
-p2 = figure(x_axis_label="Température (°C)", y_axis_label="Concentration", title="Concentration en NO2 et O3 en fonction de la température")
-p2.circle(meteo_air["Température (°C)"], meteo_air["conc_no2"], color="red", legend_label="NO2")
-p2.circle(meteo_air["Température (°C)"], meteo_air["conc_o3"], color="blue", legend_label="O3")
-p2.circle(meteo_air["Température (°C)"], meteo_air["conc_so2"], color="orange", legend_label="SO2")
-p2.circle(meteo_air["Température (°C)"], meteo_air["conc_pm10"], color="green", legend_label="PM10")
-p2.circle(meteo_air["Température (°C)"], meteo_air["conc_pm25"], color="yellow", legend_label="PM25")
+p2 = figure(title='Température en fonction du temps', x_axis_label='Date', y_axis_label='Température (°C)')
+p2.line(meteo_air['Month'].index, meteo_air['Température (°C)'])
 
-p2.legend.location = "top_left"
+# Génération du code HTML et JavaScript pour le graphique
 script2, div2 = components(p2)
 
 ############# graph 3 ################
 
-p3 = figure(x_axis_label="Humidité", y_axis_label="Concentration", title="Concentration en NO2 et O3 en fonction de l'humidité")
-p3.circle(meteo_air["Humidité"], meteo_air["conc_no2"], color="red", legend_label="NO2")
-p3.circle(meteo_air["Humidité"], meteo_air["conc_o3"], color="blue", legend_label="O3")
-p3.circle(meteo_air["Humidité"], meteo_air["conc_so2"], color="orange", legend_label="SO2")
-p3.circle(meteo_air["Humidité"], meteo_air["conc_pm10"], color="green", legend_label="PM10")
-p3.circle(meteo_air["Humidité"], meteo_air["conc_pm25"], color="yellow", legend_label="PM25")
+p3 = figure(title='Humidité en fonction du temps', x_axis_label='Date', y_axis_label='Humidité')
+p3.line(meteo_air['Month'].index, meteo_air['Humidité'])
 
-p3.legend.location = "top_left"
+# Génération du code HTML et JavaScript pour le graphique
 script3, div3 = components(p3)
+
+############# graph 4 ################
+
+p4 = figure(title='Concentration en NO2 en fonction de la température', x_axis_label='Température (°C)', y_axis_label='Concentration en NO2')
+p4.circle(meteo_air['Température (°C)'], meteo_air['conc_no2'])
+
+# Génération du code HTML et JavaScript pour le graphique
+script4, div4 = components(p4)
+
+
+############# graph 5 ################
+
+p5 = figure(x_axis_label="Température (°C)", y_axis_label="Concentration", title="Les différentes concentration en fonction de la température")
+p5.circle(meteo_air["Température (°C)"], meteo_air["conc_no2"], color="red", legend_label="NO2")
+p5.circle(meteo_air["Température (°C)"], meteo_air["conc_o3"], color="blue", legend_label="O3")
+p5.circle(meteo_air["Température (°C)"], meteo_air["conc_so2"], color="orange", legend_label="SO2")
+p5.circle(meteo_air["Température (°C)"], meteo_air["conc_pm10"], color="green", legend_label="PM10")
+p5.circle(meteo_air["Température (°C)"], meteo_air["conc_pm25"], color="yellow", legend_label="PM25")
+
+p5.legend.location = "top_left"
+script5, div5 = components(p5)
+
+############# graph 6################
+
+p6 = figure(x_axis_label="Humidité", y_axis_label="Concentration", title="Les différentes concentration en fonction de l'humidité")
+p6.circle(meteo_air["Humidité"], meteo_air["conc_no2"], color="red", legend_label="NO2")
+p6.circle(meteo_air["Humidité"], meteo_air["conc_o3"], color="blue", legend_label="O3")
+p6.circle(meteo_air["Humidité"], meteo_air["conc_so2"], color="orange", legend_label="SO2")
+p6.circle(meteo_air["Humidité"], meteo_air["conc_pm10"], color="green", legend_label="PM10")
+p6.circle(meteo_air["Humidité"], meteo_air["conc_pm25"], color="yellow", legend_label="PM25")
+
+p6.legend.location = "top_left"
+script6, div6 = components(p6)
+
+############# graph 7 ################
+
+p7 = figure(title='Concentration en molécules dans l air', x_axis_label='Molécules', y_axis_label='Concentration')
+p7.vbar(x=air_mean.index, top=air_mean['conc_no2'], width=0.9, color="blue", legend_label="NO2")
+p7.vbar(x=air_mean.index, top=air_mean['conc_o3'], width=0.9, color="orange", legend_label="O3")
+p7.vbar(x=air_mean.index, top=air_mean['conc_pm10'], width=0.9, color="green", legend_label="PM10")
+p7.vbar(x=air_mean.index, top=air_mean['conc_pm25'], width=0.9, color="yellow", legend_label="PM25")
+p7.vbar(x=air_mean.index, top=air_mean['conc_so2'], width=0.9, color="purple", legend_label="SO2")
+
+# Génération du code HTML et JavaScript pour le graphique
+script7, div7 = components(p7)
+
+
+
+
 
 
 
@@ -123,8 +169,7 @@ def tableMeteoAir():
 
 @app.route('/graphique')
 def graphique():
-    return render_template('graphique.html', script=script, div=div, script2=script2, div2=div2, script3=script3, div3=div3)
-
+    return render_template('graphique.html', script=script1, div=div1, script2=script2, div2=div2, script3=script3, div3=div3, script4=script4, div4=div4, script5=script5, div5=div5, script6=script6, div6=div6, script7=script7, div7=div7)
 
 if __name__ == '__main__':
     app.run(debug=True)
