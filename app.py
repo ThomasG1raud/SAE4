@@ -11,7 +11,9 @@ from bokeh.plotting import figure
 from bokeh.io import output_file, show
 from bokeh.layouts import column
 from bokeh.models import ColumnDataSource, Select
-from bokeh.plotting import figure, curdoc
+from bokeh.plotting import figure, curdoc, output_file, show
+from bokeh.models import ColumnDataSource, HoverTool
+
 
 app = Flask(__name__)
 
@@ -67,13 +69,39 @@ print("merge meteo air :", meteo_air.shape)
 meteo_air['Date'] = meteo_air['Date'].dt.strftime('%Y-%m-%d')
 
 ############# graph 1 ################
-"""
+
 p = figure(title='Concentration en NO2 en fonction de la température', x_axis_label='Température (°C)', y_axis_label='Concentration en NO2')
 p.circle(meteo_air['Température (°C)'], meteo_air['conc_no2'])
 
 # Génération du code HTML et JavaScript pour le graphique
 script, div = components(p)
-"""
+
+############# graph 2 ################
+
+p2 = figure(x_axis_label="Température (°C)", y_axis_label="Concentration", title="Concentration en NO2 et O3 en fonction de la température")
+p2.circle(meteo_air["Température (°C)"], meteo_air["conc_no2"], color="red", legend_label="NO2")
+p2.circle(meteo_air["Température (°C)"], meteo_air["conc_o3"], color="blue", legend_label="O3")
+p2.circle(meteo_air["Température (°C)"], meteo_air["conc_so2"], color="orange", legend_label="SO2")
+p2.circle(meteo_air["Température (°C)"], meteo_air["conc_pm10"], color="green", legend_label="PM10")
+p2.circle(meteo_air["Température (°C)"], meteo_air["conc_pm25"], color="yellow", legend_label="PM25")
+
+p2.legend.location = "top_left"
+script2, div2 = components(p2)
+
+############# graph 3 ################
+
+p3 = figure(x_axis_label="Humidité", y_axis_label="Concentration", title="Concentration en NO2 et O3 en fonction de la température")
+p3.circle(meteo_air["Humidité"], meteo_air["conc_no2"], color="red", legend_label="NO2")
+p3.circle(meteo_air["Humidité"], meteo_air["conc_o3"], color="blue", legend_label="O3")
+p3.circle(meteo_air["Humidité"], meteo_air["conc_so2"], color="orange", legend_label="SO2")
+p3.circle(meteo_air["Humidité"], meteo_air["conc_pm10"], color="green", legend_label="PM10")
+p3.circle(meteo_air["Humidité"], meteo_air["conc_pm25"], color="yellow", legend_label="PM25")
+
+p3.legend.location = "top_left"
+script3, div3 = components(p3)
+
+
+
 ######################## Routes ########################################
 
 @app.route('/')
@@ -92,11 +120,11 @@ def tableAir():
 @app.route('/tableMeteoAir')
 def tableMeteoAir():
     return render_template('tableMeteoAir.html', tables=[meteo_air.to_html()], titles=[''])
-"""
+
 @app.route('/graphique')
 def graphique():
-    return render_template('graphique.html', script=script, div=div)
-"""
+    return render_template('graphique.html', script=script, div=div, script2=script2, div2=div2, script3=script3, div3=div3)
+
 
 if __name__ == '__main__':
     app.run(debug=True)
