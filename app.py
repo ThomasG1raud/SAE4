@@ -90,7 +90,7 @@ script2, div2 = components(p2)
 
 ############# graph 3 ################
 
-p3 = figure(x_axis_label="Humidité", y_axis_label="Concentration", title="Concentration en NO2 et O3 en fonction de la température")
+p3 = figure(x_axis_label="Humidité", y_axis_label="Concentration", title="Concentration en NO2 et O3 en fonction de l'humidité")
 p3.circle(meteo_air["Humidité"], meteo_air["conc_no2"], color="red", legend_label="NO2")
 p3.circle(meteo_air["Humidité"], meteo_air["conc_o3"], color="blue", legend_label="O3")
 p3.circle(meteo_air["Humidité"], meteo_air["conc_so2"], color="orange", legend_label="SO2")
