@@ -73,22 +73,17 @@ meteo_air['Date'] = meteo_air['Date'].dt.strftime('%Y-%m-%d')
 meteo_air['Date'] = pd.to_datetime(meteo_air['Date'], format='%Y-%m-%d')
 meteo_air['Month'] = meteo_air['Date'].dt.month_name()
 meteo_air_mean = meteo_air.groupby(['Month']).mean()
-meteo_air_mean = meteo_air_mean.reset_index()
+# meteo_air_mean = meteo_air_mean.reset_index()
+
 
 ordre = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November']
-# sns.barplot(x=meteo_air_mean.index ,y='Température (°C)', data=meteo_air_mean,order=ordre)
-# plt.xlabel('Month')
-# plt.xticks(rotation=90)
-# plt.ylabel('Température (°C)')
-# plt.title('Température par mois')
-# scriptTempA, divTempA = components(plt)
-source = ColumnDataSource(meteo_air_mean)
-# Create a new figure
-p = figure(x_range=ordre, title="Température par mois", x_axis_label='Month', y_axis_label='Température (°C)')
-# Add a bar renderer to the figure
-p.vbar(x='index', top='Température (°C)', width=0.9, source=source)
-# Generate the script and div
-scriptTempA, divTempA = components(p)
+sns.barplot(x=meteo_air_mean.index ,y='Température (°C)', data=meteo_air_mean,order=ordre)
+plt.xlabel('Month')
+plt.xticks(rotation=90)
+plt.ylabel('Température (°C)')
+plt.title('Température par mois')
+plt.savefig('static/images/graph2.png')
+
 
 ############# graph 2 ################
 source = ColumnDataSource(meteo_air)
@@ -470,13 +465,25 @@ scriptConcN, divConcN = components(pN)
 
 ############ graphique moyenne concentrations annuelle
 # Calculer la moyenne de chaque colonne
+# mean_values = meteo_air.mean()
+# # Créer une source de données pour Bokeh
+# source = ColumnDataSource(data=dict(x=list(mean_values.index), y=list(mean_values.values)))
+# # Créer un graphique en barres
+# p = figure(x_range=list(mean_values.index), height=350, title="Moyenne des colonnes")
+# p.vbar(x='x', top='y', width=0.9, source=source)
+# # Personnaliser le graphique
+# p.xgrid.grid_line_color = None
+# p.y_range.start = 0
+
+# scriptMoy, divMoy = components(p)
+
 mean_values = meteo_air.mean()
-# Créer une source de données pour Bokeh
+# Create a data source for Bokeh
 source = ColumnDataSource(data=dict(x=list(mean_values.index), y=list(mean_values.values)))
-# Créer un graphique en barres
-p = figure(x_range=list(mean_values.index), height=350, title="Moyenne des colonnes")
-p.vbar(x='x', top='y', width=0.9, source=source)
-# Personnaliser le graphique
+# Create a line plot
+p = figure(height=350, title="Moyenne des colonnes")
+p.line(x='x', y='y', source=source)
+# Customize the plot
 p.xgrid.grid_line_color = None
 p.y_range.start = 0
 
@@ -521,7 +528,7 @@ def page():
 @app.route('/graphiqueMeteo')
 def graphiqueMeteo():
     script = server_document('http://localhost:5006/app')
-    return render_template('graphiqueMeteo.html',scriptMeteo=scriptMeteo, divMeteo= divMeteo,scriptTempA=scriptTempA,divTempA=divTempA)
+    return render_template('graphiqueMeteo.html',scriptMeteo=scriptMeteo, divMeteo= divMeteo)
 
 @app.route('/graphiqueAir')
 def graphiqueAir():

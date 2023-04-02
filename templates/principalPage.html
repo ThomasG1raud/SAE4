@@ -28,62 +28,65 @@
                   <li class="nav-item">
                     <a class="nav-link" href="/mappe">Representation geographique </a>
                   </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="/prevision">Prévisions </a>
+                  </li>
                 </ul>
               </div>
             </div>
           </nav>
 
-        <div>
-            <h1> Présentation du projet </h1>
-            <p> Le projet consiste à créer un site web qui permet de visualiser les données météo et air </p>
-            <p> Le site web est composé de 2 pages : </p>
+          <div>
+            <h1> Project Overview</h1>
+            <p>The project is to create a website that visualizes weather and air data </p>
+            <p>The website consists of 2 pages:</p>
             <ul>
-                <li> Une page qui permet de visualiser les données météo et air </li>
-                <li> Une page qui permet de visualiser les graphiques</li>
+               <li>A page that allows you to view the air quality graphics</li>
+               <li>A page that allows you to view the weather graphics</li>
+               <li> A page that allows you to view the graphics</li>
+               <li> A page that allows you to view the map</li>
+               <li> A page that allows you to view the forecast</li>
             </ul>
-            <p> Le site web est développé en Python avec le framework Flask </p>
-
-            <h2> Objecif </h2>
-            <p>Le but du projet est de créer un site web qui permet de visualiser les données météo et air <br />
-                1. Collecte des donnees à partir de deux sources de données : 
-                <ul>
-                    <li>Les données air sont récupérées depuis le site <a href="https://hub.arcgis.com/datasets/573182f1b016474ca43b9543e71cd3a6_0/explore?location=47.467301%2C1.684380%2C8.58&showTable=true">hub.arcgis.com</a></li>
-                    <li>Les données météo sont récupérées depuis le site <a href="https://data.opendatasoft.com/explore/dataset/donnees-synop-essentielles-omm%40public/table/?sort=date&refine.date=2022&refine.nom_reg=Centre-Val+de+Loire">data.opendatasoft.com</a></li>
-                </ul>
-                2. Fusion et integration de données. Appliquer les procédures de pré-traitement pour gérer les donnés collectees et les créeer/modifier en utilisant pandas [1].<br />
-                <ul>
-                    <li>Integration des données: combiner les données provenant de différentes sources dans une vue unifiee</li>
-                    <li>Normalisation des variables quantitatives</li>
-                    <li>Encodage des variables qualitatives.</li>
-                </ul>
-                
-                3. Production de statistiques descriptives:<br />
-                <ul>
-                <li>Pour chaque caracteristique (selon son type)</li>
-                <li>Ou pour l'ensemble de ce jeu de donnees.</li> 
-                </ul>
-                4. Chercher les donnees manquantes, et tester plusieurs méthodes de complétion. <br />
-                <ul>
-                    <li>Evaluation des résultats de différentes méthodes par plusieurs métriques si c'est possible</li>
-                    <li>Chercher les meilleurs methodes. </li>
-                </ul>
-                
-                5. Recherche et traitement de donnees aberrantes, par plusieurs maniéres.<br />
-                <ul>
-                    <li>Comment trouver les meilleures methodes ? </li>
-                    <li>Evaluation des résultats par plusieurs mètriques. </li>
-                    <li>Quelle methode vous devriez utiliser parmi celles proposées par l'application?</li> 
-                </ul>
-                6. Visualisation de donnees pour une caracteristique/variable explicative (selon son type): sélectionner parmi celles proposees par l'application fournie ou pour l'ensemble des caractéristiques (récurrence, distribution, etc).<br />
-                7. Selection de caractéristiques: utiliser différentes techniques pour la sélection des caractéristiques, telles que les methodes de sélection par filtre univarié et l’algorithme d’élimination récursif [2, 3]. <br />
-                <ul>
-                    <li>Comment trouver les meilleures methodes ? </li>
-                    <li>Evaluation des résultats par plusieurs métriques. </li>
-                    <li>Quelle methode vous devriez utiliser parmi celles proposées par l'application? </li>
-                </ul>
-                8. Prediction ou classification (suivant le contexte) par plusieurs techniques d'apprentissage automatique (selection de modéle). <br />
-                9. Interface publique pour montrer les resultats de l'analyse au client.
+            <p>The website is developed in Python with the Flask framework </p>
+            <h2>Objective </h2>
+            <p>The goal of the project is to create a website that allows you to view weather and air <br />data
+               1. Data collection from two data sources: 
+            <ul>
+               <li>The air data is retrieved from <a href="https://hub.arcgis.com/datasets/573182f1b016474ca43b9543e71cd3a6_0/explore?location=47.467301%2C1.684380%2C8.58&showTable=true">hub.arcgis.com</a></li>
+               <li>The weather data is retrieved from <a href="https://data.opendatasoft.com/explore/dataset/donnees-synop-essentielles-omm%40public/table/?sort=date&refine.date=2022&refine.nom_reg=Centre-Val+de+Loire">data.opendatasoft.com</a></li>
+            </ul>
+            2. Data fusion and integration. Apply pre-processing procedures to manage collected data and create/modify them using pandas [1].<br />
+            <ul>
+               <li>Data integration: combine data from different sources into a unified view</li>
+               <li>Normalization of quantitative variables</li>
+               <li>Categorical variable coding.</li>
+            </ul>
+            3. Production of descriptive statistics:<br />
+            <ul>
+               <li>For each characteristic (according to its type)</li>
+               <li>Or for this entire dataset.</li>
+            </ul>
+            4. Search for missing data, and test several completion methods. <br />
+            <ul>
+               <li>Evaluating results from different methods by multiple metrics if possible</li>
+               <li>Search for the best methods. </li>
+            </ul>
+            5. Search and treatment of outliers, by several methods
+            <ul>
+               <li>How do you find the best methods? </li>
+               <li>Evaluation of results by several metrics. </li>
+               <li>Which method should you use among those proposed by the application?</li>
+            </ul>
+            6. Data visualization for an explanatory characteristic/variable (according to its type): select among those proposed by the provided application or for all characteristics (recurrence, distribution, etc.)
+            7. Feature selection: use different techniques for feature selection, such as univariate filter selection methods and recursive elimination algorithm [2, 3]. <br />
+            <ul>
+               <li>How do you find the best methods? </li>
+               <li>Evaluation of results by multiple metrics. </li>
+               <li>Which method should you use among those proposed by the application? </li>
+            </ul>
+            8. Prediction or classification (depending on the context) by several machine learning techniques (model selection). <br />
+            9. Public interface to show the results of the analysis to the client.
             </p>
-        </div>
+         </div>
     </body>
 </html>
